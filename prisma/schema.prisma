@@ -12,4 +12,13 @@ model User {
   email    String  @unique
   name     String
   imageurl String?
+  accounts Account[]
+}
+
+model Account {
+  id              String      @id @default(cuid())
+  accessToken     String      @unique
+  email           String
+  userId          String
+  user            User        @relation(fields: [userId], references: [id])
 }

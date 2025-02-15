@@ -1,11 +1,12 @@
-import Link from "next/link";
 
-import { LatestPost } from "@/app/_components/post";
-import { api, HydrateClient } from "@/trpc/server";
 import { Button } from "@/components/ui/button";
+import { LinkButton } from "@/components/ui/LinkButton";
 
 export default async function Home() {
   return (
-    <Button>Hello there</Button>
+    <div>
+      <Button>Hello there</Button>
+      <LinkButton/>
+    </div>
   );
 }
