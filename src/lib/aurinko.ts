@@ -10,22 +10,29 @@ export const getAurinkoAuthUrl = async(serviceType:'Google')=>{
     })
     return `https://api.aurinko.io/v1/auth/authorize?${params.toString()}`
 }
-export const exchangeCodeforToken = async (code: string) => {
-    try{
-        const response = await axios.post(`https://api.aurinko.io/v1/auth/token/${code}`, {},{
-            auth: {
-                username: process.env.AURINKO_CLIENT_ID as string,
-                password: process.env.AURINKO_CLIENT_SECRET as string
-            },
-        })
+
+export const getAurinkoToken = async (code: string) => {
+    try {
+        const response = await axios.post(`https://api.aurinko.io/v1/auth/token/${code}`,
+            {},
+            {
+                auth: {
+                    username: process.env.AURINKO_CLIENT_ID as string,
+                    password: process.env.AURINKO_CLIENT_SECRET as string,
+                }
+            }
+        );
+        console.log('Aurinko token response:', response.data);
+
         return response.data as {
             accountId: number,
             accessToken: string,
             userId: string,
             userSession: string
         }
-    }catch(error){
-        console.error(error)
+    } catch (error) {
+            console.error('Unexpected error fetching Aurinko token:', error);
+        
     }
 }
 
